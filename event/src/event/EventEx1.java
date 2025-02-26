@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 class Event implements Serializable {
+	private static final long serialVersionUID = 1L;
 	String title;
 	Date startTime;
 	Date lastTime;
@@ -68,9 +69,9 @@ public class EventEx1 {
 
 	private static void printEvent(Map<String, List<Event>> events) {
 	    Scanner scan = new Scanner(System.in);
-	    System.out.print("조회할 년도를 입력하세요 >> ");
+	    System.out.print("조회할 달력의 년도를 입력하세요 >> ");
 	    int year = scan.nextInt(); 
-	    System.out.print("조회할 년도를 입력하세요 >> ");
+	    System.out.print("조회할 달력의 월를 입력하세요 >> ");
 	    int month = scan.nextInt(); 
 	    scan.nextLine(); 
 	    Calendar ca1 = Calendar.getInstance();
@@ -78,7 +79,7 @@ public class EventEx1 {
 	    int firstweek = ca1.get(Calendar.DAY_OF_WEEK);  
 	    int lastday = ca1.getActualMaximum(Calendar.DATE); 
 	    System.out.println("\t" + year + "년 " + month + "월");
-	    System.out.printf("%-3c %-3c %-3c %-3c %-3c %-3c %-3c", '일', '월', '화', '수', '목', '금', '토'); 
+	    System.out.printf("%-7s %-7s %-7s %-7s %-7s %-7s %-7s", "일", "월", "화", "수", "목", "금", "토");
 	    System.out.println();
 	    Map<Integer, Integer> eventCount = new HashMap<>();
 	    List<Event> list = events.get(name); 
@@ -108,54 +109,45 @@ public class EventEx1 {
 	    }
 	    System.out.println();
 	}
-	
-	
-	
 	private static void addEvent(Map<String, List<Event>> events) {
 	    Scanner scan = new Scanner(System.in);
+	    
 	    Date date = null;
 	    while (date == null) {
-	    	 System.out.print("년도와 날짜를 입력하세요 >> (yyyy-MM-dd) ");
-	        String a = scan.nextLine();
-	        try {
-	            date = format.parse(a);
-	        } catch (ParseException e) {
-	            System.out.println("날짜 형식에 맞게 입력하세요.");
-	        }
+	        System.out.print("년도와 날짜를 입력하세요 >> (yyyy-MM-dd) ");
+	        date = parseDate(scan.nextLine(), "yyyy-MM-dd");
 	    }
 	    System.out.print("이벤트 제목을 입력하세요 >> ");
 	    String title = scan.nextLine();
-	    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    Date startTime = null;
 	    while (startTime == null) {
-	        System.out.print("이벤트 시작 시간을 입력하세요 >> (yyyy-MM-dd HH:mm:ss) ");
-	        String b = scan.nextLine();
-	        try {
-	            startTime = dateTimeFormat.parse(b);
-	        } catch (ParseException e) {
-	            System.out.println("시간 형식에 맞게 입력하세요.");
-	        }
+	        System.out.print("이벤트 시작 시간을 입력하세요 >> (HH:mm:ss) ");
+	        startTime = parseDate(scan.nextLine(), "HH:mm:ss");
 	    }
 	    Date endTime = null;
 	    while (endTime == null) {
-	    	System.out.print("이벤트 종료 시간을 입력하세요 >> (yyyy-MM-dd HH:mm:ss) ");
-	        String c = scan.nextLine();
-	        try {
-	            endTime = dateTimeFormat.parse(c);
-	        } catch (ParseException e) {
-	            System.out.println("시간 형식에 맞게 입력하세요.");
-	        }
+	        System.out.print("이벤트 종료 시간을 입력하세요 >> (HH:mm:ss) ");
+	        endTime = parseDate(scan.nextLine(), "HH:mm:ss");
 	    }
 	    System.out.print("이벤트 상세 정보를 입력하세요: ");
 	    String details = scan.nextLine();
 	    Event event = new Event(date, title, startTime, endTime, details);
 	    List<Event> list = events.get(name);
 	    if (list == null) {
-	        list = new ArrayList<Event>();
+	        list = new ArrayList<>();
 	        events.put(name, list);
 	    }
 	    list.add(event);
 	    System.out.println("이벤트가 추가되었습니다.");
+	}
+	private static Date parseDate(String dateString, String pattern) {
+	    try {
+	        SimpleDateFormat format = new SimpleDateFormat(pattern);
+	        return format.parse(dateString);
+	    } catch (ParseException e) {
+	        System.out.println("잘못된 날짜/시간 형식입니다. 다시 입력해주세요.");
+	        return null;
+	    }
 	}
 	
 	private static void viewEvent(Map<String, List<Event>> events) throws ParseException {
