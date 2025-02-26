@@ -79,7 +79,7 @@ public class EventEx1 {
 	    int firstweek = ca1.get(Calendar.DAY_OF_WEEK);  
 	    int lastday = ca1.getActualMaximum(Calendar.DATE); 
 	    System.out.println("\t" + year + "년 " + month + "월");
-	    System.out.printf("%-7s %-7s %-7s %-7s %-7s %-7s %-7s", "일", "월", "화", "수", "목", "금", "토");
+	    System.out.printf("%-4s %-4s %-3s %-4s %-4s %-4s %-4s", "일", "월", "화", "수", "목", "금", "토");
 	    System.out.println();
 	    Map<Integer, Integer> eventCount = new HashMap<>();
 	    List<Event> list = events.get(name); 
@@ -165,9 +165,9 @@ public class EventEx1 {
 	    for (int i = 0; i < list.size(); i++) {
 	        Event e = list.get(i);
 	        if (e.date.equals(date2)) {
-	            System.out.println("["+(count+1)+"]번호 이벤트 제목: " + e.title);
-	            System.out.println("[기간]" + dateTimeFormat.format(e.startTime)+"~"+ dateTimeFormat.format(e.lastTime));
-	            System.out.println("[상세]" + e.details);
+	            System.out.println("번호"+(count+1)+"=> [제목] : " + e.title);
+	            System.out.println("[기간] : " + dateTimeFormat.format(e.startTime)+"~"+ dateTimeFormat.format(e.lastTime));
+	            System.out.println("[상세] : " + e.details);
 	            count++;
 	        }
 	    }
@@ -231,9 +231,13 @@ public class EventEx1 {
 	        System.out.println("해당 날짜에 이벤트가 없습니다.");
 	        return;
 	    }
+	    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    System.out.println("해당 날짜에 등록된 이벤트 목록:");
 	    for (int i = 0; i < sameDateEvents.size(); i++) {
-	        System.out.println("[" + (i + 1) + "] " + sameDateEvents.get(i).title);
+	    	Event e = sameDateEvents.get(i);
+	        System.out.println("번호:" + (i + 1) + "=>[제목] : " + sameDateEvents.get(i).title);
+            System.out.println("기간 : " + dateTimeFormat.format(e.startTime) + " ~ " + dateTimeFormat.format(e.lastTime));
+            System.out.println("상세 : " + e.details);
 	    }
 	    System.out.print("삭제할 이벤트 번호를 입력하세요>>");
 	    int choice = scan.nextInt();
