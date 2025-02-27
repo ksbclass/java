@@ -28,7 +28,11 @@ public class Exam2 {
 		br.lines().map(f).filter(s->s.getCar().equals("그랜저")&&s.getCon()==3)
 		  .forEach(s->System.out.println(s));
 		//그랜저의 반품 수량 출력하기
-		System.out.println("그랜저 반품 수량 : "+br.lines());
+		br = new BufferedReader(new FileReader("product.txt"));
+		int sum = br.lines().map(f).filter(s->s.getCar().equals("그랜저")&&s.getCon()==3)
+				.mapToInt(s->s.getQty())//Stream<Car> => 수량 데이터 IntStream 으로 변경
+				.sum(); //전체반품수량
+		System.out.println("그랜저 반품 수량 : "+sum);
 	}
 
 }
