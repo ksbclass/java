@@ -33,6 +33,11 @@ class Event implements Serializable {
 		this.lastTime = lastTime;
 		this.date = date;
 	}
+
+	@Override
+	public String toString() {
+		return "[제목]" + title + "\n[기간]" + startTime + "~" + lastTime + "\n[상세]" + details;
+	}
 }
 public class Event1 {
 	private static String name;
@@ -120,7 +125,6 @@ public class Event1 {
 	
 	private static void addEvent(Map<String, List<Event>> events) {
 	    Scanner scan = new Scanner(System.in);
-	    
 	    Date date = null;
 	    while (date == null) {
 	        System.out.print("년도와 날짜를 입력하세요 >> (yyyy-MM-dd) ");
@@ -149,6 +153,8 @@ public class Event1 {
 	    list.add(event);
 	    System.out.println("이벤트가 추가되었습니다.");
 	}
+	
+//====================================================================================================================================	
 	private static Date parseDate(String dateString, String pattern) {
 	    try {
 	        SimpleDateFormat format = new SimpleDateFormat(pattern);
@@ -219,21 +225,28 @@ public class Event1 {
 	    					System.out.println("잘못된 번호입니다.");
 	    					return;
 	    				}
-	    				Event e1 = list.get(choice - 1);
-	    				System.out.println("현재 제목: " + e1.title);
-	    				System.out.print("새로운 제목을 입력하세요: ");
-	    				e1.title = scan.nextLine();
-	    				System.out.print("새로운 시작 시간을 입력하세요 (yyyy-MM-dd HH:mm:ss): ");
-	    				String newStartTime = scan.nextLine();
-	    				e1.startTime = a.parse(newStartTime);
-	    				System.out.print("새로운 종료 시간을 입력하세요 (yyyy-MM-dd HH:mm:ss): ");
-	    				String newEndTime = scan.nextLine();
-	    				e1.lastTime = a.parse(newEndTime);
-	    				System.out.print("새로운 상세 정보를 입력하세요: ");
-	    				e1.details = scan.nextLine();
-	    				System.out.println("이벤트가 변경되었습니다.");
-	    				eventFound = true;
-	    				break;
+	    				
+	    				System.out.print("변경할 이벤트가 맞습니까? 변경하실려면 Y를 입력하세요");
+	    				String input=scan.nextLine();
+	    				if (input.equalsIgnoreCase("y")) {
+	    					Event e1 = list.get(choice - 1);
+	    					System.out.println("현재 제목: " + e1.title);
+	    					System.out.print("새로운 제목을 입력하세요: ");
+	    					e1.title = scan.nextLine();
+	    					System.out.print("새로운 시작 시간을 입력하세요 (yyyy-MM-dd HH:mm:ss): ");
+	    					String newStartTime = scan.nextLine();
+	    					e1.startTime = a.parse(newStartTime);
+	    					System.out.print("새로운 종료 시간을 입력하세요 (yyyy-MM-dd HH:mm:ss): ");
+	    					String newEndTime = scan.nextLine();
+	    					e1.lastTime = a.parse(newEndTime);
+	    					System.out.print("새로운 상세 정보를 입력하세요: ");
+	    					e1.details = scan.nextLine();
+	    					System.out.println("이벤트가 변경되었습니다.");
+	    					eventFound = true;    					
+	    				}else {
+	    					System.out.println("변경이 취소 되었습니다.");
+	    					break;
+	    				}
 	    			}
 	    		}
 	    		if (!eventFound) {
@@ -285,6 +298,9 @@ public class Event1 {
         		System.out.println("잘못된 번호입니다.");
         		return;
         	}
+    		System.out.println("번호:" + (choice) + "=>[제목] : " + sameDateEvents.get(choice-1).title);
+    		System.out.println("기간 : " + dateTimeFormat.format(sameDateEvents.get(choice-1).startTime) + " ~ " + dateTimeFormat.format(sameDateEvents.get(choice-1).lastTime));
+    		System.out.println("상세 : " + sameDateEvents.get(choice-1).details);
         	System.out.print("삭제할 이벤트가 맞습니까? 삭제하려면 Y를 입력하세요: ");
         	String input = scan.nextLine();
         	if (input.equalsIgnoreCase("y")) {
