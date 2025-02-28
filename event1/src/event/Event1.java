@@ -40,14 +40,13 @@ class Event implements Serializable {
 	}
 }
 public class Event1 {
-	private static String name;
+	public static String name;
 	static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException{
 		Scanner scan = new Scanner(System.in);
 		 System.out.print("사용자 아이디를 입력하세요 >> ");
 		name = scan.nextLine();
 		Map<String, List<Event>> events = loadEvents();
-		//		List<Event> evList = new ArrayList<Event>();
 		while(true) {
 			System.out.print("메뉴번호를 입력하세요(1. 종료, 2. 달력조회, 3. 이벤트추가, 4. 이벤트 조회, 5. 이벤트 변경, 6. 이벤트 삭제) >> ");
 			int choice = scan.nextInt();
@@ -77,7 +76,8 @@ public class Event1 {
 //======================================================================================================================================
 	
 	private static void printEvent(Map<String, List<Event>> events) {
-	    Scanner scan = new Scanner(System.in);
+	    try {
+		Scanner scan = new Scanner(System.in);
 	    System.out.print("조회할 년도를 입력하세요>>");
 	    int year = scan.nextInt(); 
 	    System.out.print("조회할 월을 입력하세요>>");
@@ -117,6 +117,9 @@ public class Event1 {
 	        if (i % 7 == 0) System.out.println();
 	    }
 	    System.out.println();
+	    }catch (Exception e) {
+	    	System.out.println("잘못된 형식입니다.");
+	    }
 	}
 	
 //======================================================================================================================================
