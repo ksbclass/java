@@ -35,7 +35,7 @@ public class JoinEx1 {
 				new SumRunnable(201, 400),new SumRunnable(401, 600),
 				new SumRunnable(601, 800),new SumRunnable(801, 1000));
 		List<Thread> list1 = new ArrayList<>(); //Thread 객체 5개 저장
-		for(Runnable s : list) list1.add(new Thread(s));
+		for(Runnable s : list1) list1.add(new Thread(s));
 		for(Thread t : list1) t.start(); //5개의 스레드가 start()
 		/*
 		 * 모든 스레드가 종료할때 까지 main 메서드가 대기함

@@ -8,7 +8,7 @@ create table member (
 	picture varchar(200)
 );
 
-select * from member
+select * from member;
 
 create table book (
 	writer varchar(20) primary key,
@@ -16,4 +16,5 @@ create table book (
 	content varchar(200)
 );
 
-select * from book
+
+select * from book;

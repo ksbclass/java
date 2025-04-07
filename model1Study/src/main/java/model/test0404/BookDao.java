@@ -13,6 +13,7 @@ public class BookDao {
 		String sql ="insert into book(writer,title,content)"
 				+ " values(?,?,?)";
 		try {
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, book.getWriter());
 			pstmt.setString(2, book.getTitle());
