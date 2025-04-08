@@ -42,7 +42,9 @@
 	<tr><td rowspan="4" valign="bottom">
 	<img src="picture/<%=mem.getPicture() %>" width="100" height="120" id="pic"><br>
 	<font size="1"><a href="javascript:win_upload()">사진수정</a></font>
-	</td><th>아이디</th><td><input type="text" value="<%=mem.getId()%>" name="id" readonly></td></tr> <!-- readonly : 수정 불가 -->
+	<!-- readonly : 값 수정 불가. 파리미터 전송가능
+	  disabled="disabled" :파라미터로 전송 안됨-->
+	</td><th>아이디</th><td><input type="text" value="<%=mem.getId()%>" name="id" readonly ></td></tr> 
 	<tr><th>비밀번호</th><td><input type="password" name="pass"></td></tr>
 	<tr><th>이름</th><td><input type="text" name="name" value="<%=mem.getName()%>"></td></tr>
 	<tr><th>성별</th><td>

@@ -10,7 +10,7 @@ import java.util.List;
 import model.DBConnection;
 
 public class MemberDao {
-	public static boolean insert(Member mem) {
+	public boolean insert(Member mem) {
 		Connection conn = DBConnection.getConnection();
 		PreparedStatement pstmt = null;
 		String sql = "insert into member (id,pass,name,gender,tel,email,picture)"
@@ -91,19 +91,18 @@ public class MemberDao {
 		}
 		return null;
 	}
-	public static boolean update(Member mem) {
+	public boolean update(Member mem) {
 	    Connection conn = DBConnection.getConnection();
-	    String sql = "UPDATE member SET pass = ?, name = ?, gender = ?, tel = ?, email = ?, picture = ? WHERE id = ?";
+	    String sql = "update member set name = ?, gender = ?, tel = ?, email = ?, picture = ? where id = ?";
 	    PreparedStatement pstmt = null;
 	    try {
-	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, mem.getPass());    
-	        pstmt.setString(2, mem.getName());
-	        pstmt.setInt(3, mem.getGender());
-	        pstmt.setString(4, mem.getTel());
-	        pstmt.setString(5, mem.getEmail());
-	        pstmt.setString(6, mem.getPicture());
-	        pstmt.setString(7, mem.getId());
+	        pstmt = conn.prepareStatement(sql);    
+	        pstmt.setString(1, mem.getName());
+	        pstmt.setInt(2, mem.getGender());
+	        pstmt.setString(3, mem.getTel());
+	        pstmt.setString(4, mem.getEmail());
+	        pstmt.setString(5, mem.getPicture());
+	        pstmt.setString(6, mem.getId());
 	        if (pstmt.executeUpdate() > 0) {
 	            return true;  
 	        } else {
@@ -116,5 +115,19 @@ public class MemberDao {
 	    }
 	    return false;
 	}
-
+	public boolean delete(String id) {
+		Connection conn = DBConnection.getConnection();
+		   String sql = "delete from member where id = ?";
+		    PreparedStatement pstmt = null;
+		    try {
+		    	pstmt = conn.prepareStatement(sql); 
+		    	pstmt.setString(1, id);
+		    	return (pstmt.executeUpdate() > 0);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+		        DBConnection.close(conn, pstmt, null);
+		    }
+		    return false;
+	}
 }
