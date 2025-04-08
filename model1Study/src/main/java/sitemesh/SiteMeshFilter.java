@@ -20,6 +20,11 @@ public class SiteMeshFilter extends ConfigurableSiteMeshFilter {
 		// layout 페이지의 위치 정보 설정
 		// member /* => http://localhost:8080/model1Study/member/ 이하 모든 요청시
 		// 				/layout/layout.jsp 페이지를 layout 페이지로 설정
-		builder.addDecoratorPath("/member/*", "/layout/layout.jsp");
+		// addDecoratorPath(url,decorator 페이지) : layout을 설정
+		// addExcludedPath(url) : layout 페이지를 제외 등록
+		builder.addDecoratorPath("/member/*", "/layout/layout.jsp")
+		.addExcludedPath("/member/picture*")
+		.addExcludedPath("/member/id*")
+		.addExcludedPath("/member/pw*");
 	}
 }

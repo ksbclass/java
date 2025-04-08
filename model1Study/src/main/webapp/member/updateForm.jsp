@@ -36,7 +36,8 @@
 <title>수정 전 화면 조회</title>
 </head>
 <body>
-<form action="update.jsp" method="post" onsubmit="return input_check(this)">
+<form action="update.jsp" name="f" method="post" onsubmit="return input_check(this)">
+<input type="hidden" name="picture" value="<%=mem.getPicture() %>">
 <table> 
 	<caption>회원정보 수정</caption>
 	<tr><td rowspan="4" valign="bottom">
@@ -67,8 +68,9 @@
 			return false;
 		}
 	}
-	function () {
-		
+	function win_upload() {
+		let op ="width=500,height=500,left=50,top=150";
+		open("pictureForm.jsp","",op);
 	}
 </script>
 </form>

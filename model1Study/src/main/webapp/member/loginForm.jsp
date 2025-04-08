@@ -41,7 +41,7 @@ function input_check(e) { // e = this (form이 맞음)
 	}
 	return true;
 }
-function win_open(page) {
+function win_open(page) { // page : 아이디 찾기 클릭시 ->idForm
 	open(page+".jsp","","width=500,height=350,left=50,top=150"); // id,pass 찾기 버튼 클릭시 해당되는 jsp페이지 열기
 }
  </script>

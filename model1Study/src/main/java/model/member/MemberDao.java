@@ -130,4 +130,45 @@ public class MemberDao {
 		    }
 		    return false;
 	}
+	public String idSearch(String email, String tel) {
+		Connection conn = DBConnection.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		String sql = "select id from member where email=? and tel=?";
+		try {
+			pstmt = conn.prepareStatement(sql); 
+			pstmt.setString(1, email);
+			pstmt.setString(2, tel);
+			rs =pstmt.executeQuery();
+			if(rs.next()) { // true : 레코드 찾기 성공
+				return rs.getString("id"); // id 값을 리턴
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        DBConnection.close(conn, pstmt, rs);
+	    }
+		return null; // 레코드 찾기 실패 or 오류 발생시
+	}
+	public String pwSearch(String id, String email, String tel ) {
+		Connection conn = DBConnection.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		String sql = "select pass from member where id=? and email=? and tel=? ";
+		try {
+			pstmt = conn.prepareStatement(sql); 			
+			pstmt.setString(1, id);
+			pstmt.setString(2, email);
+			pstmt.setString(3, tel);
+			rs =pstmt.executeQuery();
+			if(rs.next()) { 
+				return rs.getString("pass"); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        DBConnection.close(conn, pstmt, rs);
+	    }
+		return null;
+	}
 }
